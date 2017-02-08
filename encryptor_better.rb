@@ -22,15 +22,19 @@ class Encryptor
      cipher_for_rotation[letter]
   end
 
-  def encrypt(string, rotation)
-    string.split("").collect{|letter| encrypt_letter(letter, rotation)}.join 
+  def encrypt(string, num1, num2, num3)
+    a = [num1, num2, num3]
+    rotation = a.cycle
+    string.split("").collect{|letter| encrypt_letter(letter, rotation.next)}.join 
   end
   
-  def decrypt(string, rotation)
-    string.split("").collect{|letter| decrypt_letter(letter, rotation)}.join 
+  def decrypt(string, r1, r2, r3)
+    a = [r1, r2, r3]
+    rotation = a.cycle
+    string.split("").collect{|letter| decrypt_letter(letter, rotation.next)}.join 
   end
 
-  def encrypt_file(filename, rotation)
+  def encrypt_file(filename, r1, r2, r3)
     input = File.open(filename, "r")
     message_to_encrypt = input.read
     encrypted_message = encrypt(message_to_encrypt, rotation)
@@ -40,7 +44,7 @@ class Encryptor
     output.close   
   end
   
-  def decrypt_file(filename, rotation)
+  def decrypt_file(filename, r1, r2, r3)
     input = File.open(filename, "r")
     pass_check = input.readline.chomp
     if pass_check == @pass
@@ -60,7 +64,7 @@ class Encryptor
 
   def crack(message)
     supported_characters.count.times.collect do |attempt|
-      decrypt(message, attempt)
+      decrypt(message)
     end
   end
 
