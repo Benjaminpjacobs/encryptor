@@ -22,16 +22,18 @@ class Encryptor
      cipher_for_rotation[letter]
   end
 
-  def encrypt(string, num1, num2, num3)
-    a = [num1, num2, num3]
-    rotation = a.cycle
-    string.split("").collect{|letter| encrypt_letter(letter, rotation.next)}.join 
+  def encrypt(string, *rotations)
+    rotation = rotations.cycle
+    string.split("").map do |letter|
+    encrypt_letter(letter, rotation.next)
+    end.join
   end
   
-  def decrypt(string, r1, r2, r3)
-    a = [r1, r2, r3]
-    rotation = a.cycle
-    string.split("").collect{|letter| decrypt_letter(letter, rotation.next)}.join 
+  def decrypt(string, *rotations)
+    rotation = rotations.cycle
+    string.split("").map do |letter|
+    decrypt_letter(letter, rotation.next)
+    end.join
   end
 
   def encrypt_file(filename, r1, r2, r3)
