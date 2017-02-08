@@ -57,5 +57,6 @@ class Encryptor
     
   def real_time_decrypt(string, rotation)
     puts decrypt(string, rotation)
-    end
+  end
+  
 end
