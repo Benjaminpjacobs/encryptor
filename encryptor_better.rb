@@ -27,32 +27,21 @@ class Encryptor
 
   def encrypt_file(filename, rotation)
     input = File.open(filename, "r")
-    #read the text of the input file
     message_to_encrypt = input.read
-    #encrypt the text
     encrypted_message = encrypt(message_to_encrypt, rotation)
-    #create a name for the output file
     output = File.open(filename.gsub("txt","encrypted"), "w")
-    #create an output file handle
     output.write(encrypted_message)
-    #write out the text
     output.close
-    #close the file
+    
   end
   
   def decrypt_file(filename, rotation)
     input = File.open(filename, "r")
-    #read the text of the input file
     message_to_decrypt = input.read
-    #encrypt the text
     decrypted_message = decrypt(message_to_decrypt, rotation)
-    #create a name for the output file
-    output = File.open(filename.gsub("encrypted", "decrypted"), "w")
-    #create an output file handle
     output.write(decrypted_message)
-    #write out the text
     output.close
-    #close the file
+    
   end
   
   def supported_characters
