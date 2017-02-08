@@ -1,10 +1,10 @@
 class Encryptor
 
-    def cipher(rotation)
+  def cipher(rotation)
     characters = (' '..'z').to_a
     rotated_characters = (' '..'z').to_a.rotate(rotation)
     Hash[characters.zip(rotated_characters)]
-    end
+  end
 
   def encrypt_letter(letter, rotation)
     cipher_for_rotation = cipher(rotation)
@@ -16,7 +16,6 @@ class Encryptor
      cipher_for_rotation[letter]
   end
 
-  
   def encrypt(string, rotation)
     string.split("").collect{|letter| encrypt_letter(letter, rotation)}.join 
   end
@@ -31,8 +30,7 @@ class Encryptor
     encrypted_message = encrypt(message_to_encrypt, rotation)
     output = File.open(filename.gsub("txt","encrypted"), "w")
     output.write(encrypted_message)
-    output.close
-    
+    output.close   
   end
   
   def decrypt_file(filename, rotation)
@@ -40,20 +38,24 @@ class Encryptor
     message_to_decrypt = input.read
     decrypted_message = decrypt(message_to_decrypt, rotation)
     output.write(decrypted_message)
-    output.close
-    
+    output.close    
   end
   
   def supported_characters
     (' '..'z').to_a
   end
 
-  
   def crack(message)
     supported_characters.count.times.collect do |attempt|
       decrypt(message, attempt)
     end
-    
   end
+
+  def real_time_encrypt(string, rotation)
+    puts encrypt(string, rotation)
+    end
     
+  def real_time_decrypt(string, rotation)
+    puts decrypt(string, rotation)
+    end
 end
