@@ -1,4 +1,10 @@
+require "digest/md5"
+
 class Encryptor
+  def initialize
+    puts "Whats the password"
+    @pass = Digest::MD5.hexdigest(gets.to_s)
+  end
 
   def cipher(rotation)
     characters = (' '..'z').to_a
@@ -29,16 +35,23 @@ class Encryptor
     message_to_encrypt = input.read
     encrypted_message = encrypt(message_to_encrypt, rotation)
     output = File.open(filename.gsub("txt","encrypted"), "w")
+    output.write(@pass + "\n")
     output.write(encrypted_message)
     output.close   
   end
   
   def decrypt_file(filename, rotation)
     input = File.open(filename, "r")
-    message_to_decrypt = input.read
-    decrypted_message = decrypt(message_to_decrypt, rotation)
-    output.write(decrypted_message)
-    output.close    
+    pass_check = input.readline.chomp
+    if pass_check == @pass
+      message_to_decrypt = input.read
+      decrypted_message = decrypt(message_to_decrypt, rotation)
+      output = File.open(filename.gsub("encrypted","decrypted"), "w")
+      output.write(decrypted_message)
+      output.close
+    else puts
+      "INVALID PASSWORD"
+    end    
   end
   
   def supported_characters
