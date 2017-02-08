@@ -1,4 +1,3 @@
-# Turing Pre-Work Project - Extended Learning
+# Encryptor/Decrypto/Crack Project for Turing Prework
 
-This is repo created to aid in the learning of git and collaborative concepts in web development.
-The specific code here is an Encryptor/Decrypto project from jumpstart labs.
+This is my completion of a tutorial to demonstrate File IO and git collaboration. 
